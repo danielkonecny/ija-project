@@ -16,35 +16,35 @@ public class Chess {
         notation = new ArrayList<PlayersMove>();
         this.board = board;
         int moves = 0;
-        this.board.field[0][0].put(new Rook(true, this.board.field[0][0]));
-        this.board.field[7][0].put(new Rook(true, this.board.field[7][0]));
-        this.board.field[0][7].put(new Rook(false, this.board.field[0][7]));
-        this.board.field[7][7].put(new Rook(false, this.board.field[7][7]));
+        this.board.field[0][0].setFigure(new Rook(true, this.board.field[0][0]));
+        this.board.field[7][0].setFigure(new Rook(true, this.board.field[7][0]));
+        this.board.field[0][7].setFigure(new Rook(false, this.board.field[0][7]));
+        this.board.field[7][7].setFigure(new Rook(false, this.board.field[7][7]));
 
-        this.board.field[1][0].put(new Knight(true, this.board.field[1][0]));
-        this.board.field[6][0].put(new Knight(true, this.board.field[6][0]));
-        this.board.field[1][7].put(new Knight(false, this.board.field[1][7]));
-        this.board.field[6][7].put(new Knight(false, this.board.field[6][7]));
+        this.board.field[1][0].setFigure(new Knight(true, this.board.field[1][0]));
+        this.board.field[6][0].setFigure(new Knight(true, this.board.field[6][0]));
+        this.board.field[1][7].setFigure(new Knight(false, this.board.field[1][7]));
+        this.board.field[6][7].setFigure(new Knight(false, this.board.field[6][7]));
 
-        this.board.field[2][0].put(new Bishop(true, this.board.field[2][0]));
-        this.board.field[5][0].put(new Bishop(true, this.board.field[5][0]));
-        this.board.field[2][7].put(new Bishop(false, this.board.field[2][7]));
-        this.board.field[5][7].put(new Bishop(false, this.board.field[5][7]));
+        this.board.field[2][0].setFigure(new Bishop(true, this.board.field[2][0]));
+        this.board.field[5][0].setFigure(new Bishop(true, this.board.field[5][0]));
+        this.board.field[2][7].setFigure(new Bishop(false, this.board.field[2][7]));
+        this.board.field[5][7].setFigure(new Bishop(false, this.board.field[5][7]));
 
-        this.board.field[3][0].put(new Queen(true, this.board.field[3][0]));
-        this.board.field[3][7].put(new Queen(false, this.board.field[3][7]));
+        this.board.field[3][0].setFigure(new Queen(true, this.board.field[3][0]));
+        this.board.field[3][7].setFigure(new Queen(false, this.board.field[3][7]));
 
-        this.board.field[4][0].put(new King(false, this.board.field[4][0]));
-        this.board.field[4][7].put(new King(false, this.board.field[4][7]));
+        this.board.field[4][0].setFigure(new King(false, this.board.field[4][0]));
+        this.board.field[4][7].setFigure(new King(false, this.board.field[4][7]));
 
         for(int i = 0; i < this.board.getSize(); i++){
-            this.board.field[i][1].put(new Pawn(true, this.board.field[i][1]));
-            this.board.field[i][6].put(new Pawn(false, this.board.field[i][6]));
+            this.board.field[i][1].setFigure(new Pawn(true, this.board.field[i][1]));
+            this.board.field[i][6].setFigure(new Pawn(false, this.board.field[i][6]));
         }
 
         for(int i = 0; i < this.board.getSize(); i++){
             for(int j = 0; j < this.board.getSize(); j++){
-                this.figureQueue.add(this.board.field[i][j].get());
+                this.figureQueue.add(this.board.field[i][j].getFigure());
             }
         }
     }
@@ -81,9 +81,9 @@ public class Chess {
         //move figure
     public boolean move(UniversalFigure figure, BoardField field){
         if (figure.canMove(field)){
-            figure.getBoardField().remove();
+            figure.getBoardField().setFigure(null);
             figure.move(field);
-            field.put(figure);
+            field.setFigure(figure);
             return true;
         }
         return false;
@@ -99,9 +99,9 @@ public class Chess {
 
         for(int i = 0; i < this.board.getSize(); i++){
             for(int j = 0; j < this.board.getSize(); j++){
-                this.board.field[i][j].put(tmp.remove());
-                if (this.board.field[i][j].get() != null){
-                    this.board.field[i][j].get().move(this.board.field[i][j]);
+                this.board.field[i][j].setFigure(tmp.remove());
+                if (this.board.field[i][j].getFigure() != null){
+                    this.board.field[i][j].getFigure().move(this.board.field[i][j]);
                 }
             }
         }
@@ -110,11 +110,11 @@ public class Chess {
     public void printBoard(){
         for(int i = 0; i < this.board.getSize(); i++){
             for(int j = 0; j < this.board.getSize(); j++){
-                if (this.board.field[i][j].get() == null){
+                if (this.board.field[i][j].getFigure() == null){
                     System.out.println("null");
                 }
                 else{
-                    this.board.field[i][j].get().printState();
+                    this.board.field[i][j].getFigure().printState();
                 }
             }
             System.out.println();
