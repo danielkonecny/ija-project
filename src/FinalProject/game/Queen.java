@@ -7,11 +7,11 @@ public class Queen extends UniversalFigure {
         super(white, boardField);
     }
 
-    public boolean canMove(BoardField boardField){
-        return true;
-    }
-
     public String getType() {
         return "D";
+    }
+
+    public boolean canMove(BoardField boardField) {  // TODO
+        return true;
     }
 }

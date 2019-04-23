@@ -7,11 +7,19 @@ public class Knight extends UniversalFigure {
         super(white, boardField);
     }
 
-    public boolean canMove(BoardField boardField){
-        return true;
-    }
-
     public String getType() {
         return "J";
+    }
+
+    public boolean canMove(BoardField destination) {
+        BoardField source = this.getBoardField();
+        return  destination.getCol() == source.getCol()+1 && destination.getRow() == source.getRow()+2 ||
+                destination.getCol() == source.getCol()+2 && destination.getRow() == source.getRow()+1 ||
+                destination.getCol() == source.getCol()+2 && destination.getRow() == source.getRow()-1 ||
+                destination.getCol() == source.getCol()+1 && destination.getRow() == source.getRow()-2 ||
+                destination.getCol() == source.getCol()-1 && destination.getRow() == source.getRow()-2 ||
+                destination.getCol() == source.getCol()-2 && destination.getRow() == source.getRow()-1 ||
+                destination.getCol() == source.getCol()-2 && destination.getRow() == source.getRow()+1 ||
+                destination.getCol() == source.getCol()-1 && destination.getRow() == source.getRow()+2;
     }
 }

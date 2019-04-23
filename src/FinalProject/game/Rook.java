@@ -7,7 +7,11 @@ public class Rook extends UniversalFigure {
         super(white, boardField);
     }
 
-    public boolean canMove(BoardField destination){
+    public String getType() {
+        return "V";
+    }
+
+    public boolean canMove(BoardField destination) {  // TODO
         BoardField source = this.getBoardField();
 
         if(destination.getCol() == source.getCol()) {
@@ -53,9 +57,5 @@ public class Rook extends UniversalFigure {
         else {
             return false;
         }
-    }
-
-    public String getType() {
-        return "V";
     }
 }

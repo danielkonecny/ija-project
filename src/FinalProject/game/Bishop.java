@@ -7,11 +7,11 @@ public class Bishop extends UniversalFigure {
         super(white, boardField);
     }
 
-    public boolean canMove(BoardField boardField){
-        return true;
-    }
-
     public String getType() {
         return "S";
+    }
+
+    public boolean canMove(BoardField boardField) {  // TODO
+        return true;
     }
 }

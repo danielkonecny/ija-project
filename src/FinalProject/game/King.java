@@ -7,11 +7,19 @@ public class King extends UniversalFigure {
         super(white, boardField);
     }
 
-    public boolean canMove(BoardField boardField){
-        return true;
-    }
-
     public String getType() {
         return "K";
+    }
+
+    public boolean canMove(BoardField destination) {
+        BoardField source = this.getBoardField();
+        return  destination.getCol() == source.getCol()   && destination.getRow() == source.getRow()+1 ||
+                destination.getCol() == source.getCol()+1 && destination.getRow() == source.getRow()+1 ||
+                destination.getCol() == source.getCol()+1 && destination.getRow() == source.getRow()   ||
+                destination.getCol() == source.getCol()+1 && destination.getRow() == source.getRow()-1 ||
+                destination.getCol() == source.getCol()   && destination.getRow() == source.getRow()-1 ||
+                destination.getCol() == source.getCol()-1 && destination.getRow() == source.getRow()-1 ||
+                destination.getCol() == source.getCol()-1 && destination.getRow() == source.getRow()   ||
+                destination.getCol() == source.getCol()-1 && destination.getRow() == source.getRow()+1;
     }
 }

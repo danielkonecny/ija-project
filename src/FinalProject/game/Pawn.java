@@ -7,30 +7,35 @@ public class Pawn extends UniversalFigure {
         super(white, boardField);
     }
 
-    public boolean canMove(BoardField destination){
+    public String getType() {
+        return "P";
+    }
+
+    public boolean canMove(BoardField destination) {
+        BoardField source = this.getBoardField();
         // Move figure forward.
         if(destination.isEmpty()) {
+            // White can move only up.
             if(this.isWhite()) {
-                return destination.getCol() == this.getBoardField().getCol() && destination.getRow() == this.getBoardField().getRow()+1;
+                return destination.getCol() == source.getCol() && destination.getRow() == source.getRow()+1;
             }
+            // Black can move only down.
             else {
-                return destination.getCol() == this.getBoardField().getCol() && destination.getRow() == this.getBoardField().getRow()-1;
+                return destination.getCol() == source.getCol() && destination.getRow() == source.getRow()-1;
             }
         }
         // Capture opponent's figure.
         else {
+            // White can move only up.
             if(this.isWhite()) {
-                return destination.getCol() == this.getBoardField().getCol()+1 && destination.getRow() == this.getBoardField().getRow()+1 ||
-                        destination.getCol() == this.getBoardField().getCol()-1 && destination.getRow() == this.getBoardField().getRow()+1;
+                return  destination.getCol() == source.getCol()+1 && destination.getRow() == source.getRow()+1 ||
+                        destination.getCol() == source.getCol()-1 && destination.getRow() == source.getRow()+1;
             }
+            // Black can move only down.
             else {
-                return destination.getCol() == this.getBoardField().getCol()+1 && destination.getRow() == this.getBoardField().getRow()-1 ||
-                        destination.getCol() == this.getBoardField().getCol()-1 && destination.getRow() == this.getBoardField().getRow()-1;
+                return  destination.getCol() == source.getCol()+1 && destination.getRow() == source.getRow()-1 ||
+                        destination.getCol() == source.getCol()-1 && destination.getRow() == source.getRow()-1;
             }
         }
-    }
-
-    public String getType() {
-        return "P";
     }
 }
