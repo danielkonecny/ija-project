@@ -7,15 +7,18 @@ import FinalProject.common.UniversalFigure;
 import java.lang.reflect.Field;
 
 public class OneMove {
+    boolean white_player;
     NotationType type;
-    public FigureType figure;
-    public String difference; //pokud je konflikt pri kratke notaci urcuje sloupec nebo radek
-    public String from;
-    public String to;
-    public String change;
-    public String special;
+    FigureType figure;
+    String difference; //pokud je konflikt pri kratke notaci urcuje sloupec nebo radek
+    String from;
+    String to;
+    FigureType change;
+    String special;
 
-    public OneMove(NotationType type, FigureType figure, String difference, String from, String to, String change, String special){
+    public OneMove(boolean white_player, NotationType type, FigureType figure, String difference,
+                   String from, String to, FigureType change, String special){
+        this.white_player = white_player;
         this.type = type;
         this.figure = figure;
         this.difference = difference;
@@ -26,13 +29,14 @@ public class OneMove {
     }
 
     public void print(){
-        System.out.println("Typ: "+this.type);
-        System.out.println("Figurka: "+this.figure);
-        System.out.println("Difference: "+this.difference);
-        System.out.println("From: "+this.from);
-        System.out.println("To: "+this.to);
-        System.out.println("Change: "+this.change);
-        System.out.println("Special: "+this.special);
+        System.out.println("Bily hrac: " + this.white_player);
+        System.out.println("Typ: " + this.type.name());
+        System.out.println("Figurka: " + this.figure.name());
+        System.out.println("Difference: " + this.difference);
+        System.out.println("From: " + this.from);
+        System.out.println("To: " + this.to);
+        System.out.println("Change: " + this.change.name());
+        System.out.println("Special: " + this.special);
         System.out.println();
     }
 

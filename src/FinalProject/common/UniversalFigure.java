@@ -18,6 +18,10 @@ public abstract class UniversalFigure {
         return this.boardField;
     }
 
+    public void setBoardField(BoardField boardField){
+        this.boardField = boardField;
+    }
+
     protected boolean isWhite() {
         return this.white;
     }
@@ -29,11 +33,6 @@ public abstract class UniversalFigure {
     public void assignBoardField(BoardField boardField, boolean white) {
         this.boardField = boardField;
         this.white = white;
-    }
-
-        //set figure's boardField
-    public void move(BoardField boardField){
-        this.boardField = boardField;
     }
 
         //returns figure's position

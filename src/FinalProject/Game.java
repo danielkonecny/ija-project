@@ -45,7 +45,7 @@ public class Game {
 
         //System.out.println(args[0]);
 
-        chess.parseNonations(args[0]);
+        chess.parseNotations(args[0]);
         //chess.debugNotation();
         //chess.clearListFrom(1);
         //chess.debugNotation();

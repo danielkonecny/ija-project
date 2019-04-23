@@ -8,14 +8,12 @@ import java.util.*;
 
 public class Chess {
     Board board;
-    int moves;
-    List<PlayersMove> notation;
+    List<OneMove> notation;
     private Queue<UniversalFigure> figureQueue = new LinkedList<>();
 
     public Chess(Board board){
-        notation = new ArrayList<>();
+        this.notation = new ArrayList<>();
         this.board = board;
-        int moves = 0;
         this.board.field[0][0].setFigure(new Rook(this.board.field[0][0], true));
         this.board.field[7][0].setFigure(new Rook(this.board.field[7][0], true));
         this.board.field[0][7].setFigure(new Rook(this.board.field[0][7], false));
@@ -48,48 +46,29 @@ public class Chess {
             }
         }
     }
-        //call this when player moves figure manually
+
+    // Call this when player moves figure manually.
     public boolean manualMove(UniversalFigure figure, BoardField field){
-        if (figure.canMove(field)){
-            this.moves += 1;
-            //if moves odd - white moving. Create PlayersMove and fill with white
-            if (this.moves % 2 == 1){
-                OneMove white = new OneMove(NotationType.Long, figure.getType(),
-                        null, figure.getBoardField().getLocation(), field.getLocation(), null, null);
-                PlayersMove round = new PlayersMove(white, null);
-                System.out.println("Debug");
-                white.print();
-                //TODO - poud jsou dalsi notace - smazat
-                notation.add(round);
-            }
-            //black moving - get PlayersMove and add black
-            else{
-                OneMove black = new OneMove(NotationType.Long, figure.getType(),
-                        null, figure.getBoardField().getLocation(), field.getLocation(), null, null);
-                PlayersMove round = notation.get(moves/2);
-                round.setBlack(black);
-            }
-            this.move(figure,field);
-            //test
+        if(figure.canMove(field)){
+            int index = this.notation.size();
+            OneMove move = new OneMove(index % 2 == 0, NotationType.Long, figure.getType(),null,
+                    figure.getBoardField().getLocation(), field.getLocation(), null, null);
+            notation.add(move);
+            this.moveFigure(figure, field);
             return true;
         }
-        else{
+        else {
             return false;
         }
     }
 
-        //move figure
-    public boolean move(UniversalFigure figure, BoardField field){
-        if (figure.canMove(field)){
-            figure.getBoardField().setFigure(null);
-            figure.move(field);
-            field.setFigure(figure);
-            return true;
-        }
-        return false;
+    private void moveFigure(UniversalFigure figure, BoardField field){
+        figure.getBoardField().setFigure(null);
+        figure.setBoardField(field);
+        field.setFigure(figure);
     }
-        //restart game - set figures to starting fields
-    public void restart(){
+
+    public void restartGame(){
         Queue<UniversalFigure> tmp = new LinkedList<>();
 
         Iterator<UniversalFigure> it = this.figureQueue.iterator();
@@ -101,7 +80,7 @@ public class Chess {
             for(int j = 0; j < this.board.getSize(); j++){
                 this.board.field[i][j].setFigure(tmp.remove());
                 if (this.board.field[i][j].getFigure() != null){
-                    this.board.field[i][j].getFigure().move(this.board.field[i][j]);
+                    this.board.field[i][j].getFigure().setBoardField(this.board.field[i][j]);
                 }
             }
         }
@@ -121,14 +100,15 @@ public class Chess {
         }
     }
 
+    /*
     public void debugNotation(){
         int cnt = 1;
-        for( PlayersMove playersMove : notation ) {
-            if (playersMove == null){
+        for(OneMove one_move: notation ) {
+            if (one_move == null){
                 return;
             }
-            OneMove white = playersMove.getWhite();
-            OneMove black = playersMove.getBlack();
+            OneMove white = one_move;
+            OneMove black = one_move;
             System.out.println("Poradi kola: " + cnt);
             cnt += 1;
             if(white != null){
@@ -141,32 +121,25 @@ public class Chess {
             }
         }
     }
+    */
 
-    public void parseNonations(String file){
+    void parseNotations(String file){
         ParseNotations parser = new ParseNotations();
-        parser.parse(this.notation, file);
+        this.notation = parser.parse(file);
     }
 
-        //user-friendly variant of printNotation
-    public void printNotation(){
-        int cnt = 1;
-        String output;
-        for( PlayersMove playersMove : notation ) {
-            if (playersMove == null){
-                return;
-            }
-            output = "";
-            OneMove white = playersMove.getWhite();
-            OneMove black = playersMove.getBlack();
-            output += cnt;
+    //user-friendly variant of printNotation
+    void printNotation(){
+        int index = 0;
+        while(index < this.notation.size()) {
+            String output = Integer.toString(index / 2 + 1);
             output += ". ";
-            cnt += 1;
-            if(white != null){
-                output += white.printOnRow();
-            }
-            if(black != null){
+            output += this.notation.get(index).printOnRow();
+            index += 1;
+            if(index < this.notation.size()) {
                 output += " ";
-                output += black.printOnRow();
+                output += this.notation.get(index).printOnRow();
+                index += 1;
             }
             System.out.println(output);
         }
