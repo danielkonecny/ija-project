@@ -5,9 +5,7 @@ import FinalProject.game.Board;
 import FinalProject.game.BoardField;
 import FinalProject.game.ReadFile;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
+
 
 public class Game {
     public static void main(String[] args) {
@@ -48,8 +46,11 @@ public class Game {
         //System.out.println(args[0]);
 
         chess.parseNonations(args[0]);
+        //chess.debugNotation();
+        //chess.clearListFrom(1);
+        //chess.debugNotation();
         chess.printNotation();
-            //==============================================
+        //==============================================
 
 
     }

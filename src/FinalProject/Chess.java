@@ -13,7 +13,7 @@ public class Chess {
     private Queue<UniversalFigure> figureQueue = new LinkedList<>();
 
     public Chess(Board board){
-        notation = new ArrayList<PlayersMove>();
+        notation = new ArrayList<>();
         this.board = board;
         int moves = 0;
         this.board.field[0][0].setFigure(new Rook(true, this.board.field[0][0]));
@@ -121,14 +121,16 @@ public class Chess {
         }
     }
 
-    public void printNotation(){
+    public void debugNotation(){
         int cnt = 1;
         for( PlayersMove playersMove : notation ) {
+            if (playersMove == null){
+                return;
+            }
             OneMove white = playersMove.getWhite();
             OneMove black = playersMove.getBlack();
             System.out.println("Poradi kola: " + cnt);
             cnt += 1;
-
             if(white != null){
                 System.out.println("White");
                 white.print();
@@ -143,5 +145,36 @@ public class Chess {
     public void parseNonations(String file){
         ParseNonations parser = new ParseNonations();
         parser.parse(this.notation, file);
+    }
+
+        //user-friendly variant of printNotation
+    public void printNotation(){
+        int cnt = 1;
+        String output;
+        for( PlayersMove playersMove : notation ) {
+            if (playersMove == null){
+                return;
+            }
+            output = "";
+            OneMove white = playersMove.getWhite();
+            OneMove black = playersMove.getBlack();
+            output += cnt;
+            output += ". ";
+            cnt += 1;
+            if(white != null){
+                output += white.printOnRow();
+            }
+            if(black != null){
+                output += " ";
+                output += black.printOnRow();
+            }
+            System.out.println(output);
+        }
+    }
+
+    public void clearListFrom(int pos){
+        for(int i = pos; i < notation.size(); i++){
+            notation.set(i,null);
+        }
     }
 }
