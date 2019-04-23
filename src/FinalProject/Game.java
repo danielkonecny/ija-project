@@ -48,6 +48,7 @@ public class Game {
         //System.out.println(args[0]);
 
         chess.parseNonations(args[0]);
+        chess.printNotation();
             //==============================================
 
 
