@@ -22,7 +22,7 @@ public abstract class UniversalFigure {
         this.boardField = boardField;
     }
 
-    protected boolean isWhite() {
+    public boolean isWhite() {
         return this.white;
     }
 
@@ -64,10 +64,6 @@ public abstract class UniversalFigure {
             }
         }
         return true;
-    }
-
-    public void removeBoardField(){
-        this.boardField = null;
     }
 
     public abstract boolean canMove(BoardField boardField);

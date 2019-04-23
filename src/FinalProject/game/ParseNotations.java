@@ -29,13 +29,13 @@ public class ParseNotations {
     }
 
     private OneMove parseMove(String moveStr, boolean white_player){
-        OneMove move = new OneMove(white_player,null,null,
-                null,null, null, null, null);
+        OneMove move = new OneMove(white_player,null,null,-1, -1,
+                -1, -1, null, null);
         int res = getMoveFigure(moveStr, move);
         moveStr = moveStr.substring(res);
         res = getMoveDifference(moveStr, move);
         moveStr = moveStr.substring(res);
-        res = getFromTo(moveStr, move);
+        res = getLocations(moveStr, move);
         moveStr = moveStr.substring(res);
         res = getChange(moveStr, move);
         moveStr = moveStr.substring(res);
@@ -55,8 +55,12 @@ public class ParseNotations {
     }
 
     private int getMoveDifference(String line, OneMove move){
-        if((isLowercaseLetter(line.charAt(0)) || isDigit(line.charAt(0))) && isLowercaseLetter(line.charAt(1))) {
-            move.difference = Character.toString(line.charAt(0));
+        if(isLowercaseLetter(line.charAt(0)) && isLowercaseLetter(line.charAt(1))) {
+            move.source_col = (int)line.charAt(0) - 65;
+            return 1;
+        }
+        else if(isDigit(line.charAt(0)) && isLowercaseLetter(line.charAt(1))) {
+            move.source_row = Character.getNumericValue(line.charAt(0)) - 1;
             return 1;
         }
         return 0;
@@ -74,22 +78,25 @@ public class ParseNotations {
         return (Character.isDigit(letter));
     }
 
-    private int getFromTo(String line, OneMove move){
-        // Loading from and to
+    private int getLocations(String line, OneMove move){
+        // Loading source and destination
         if(line.length() > 3){
             if(isLowercaseLetter(line.charAt(0)) &&
                     isDigit(line.charAt(1)) &&
                     isLowercaseLetter(line.charAt(2)) &&
                     isDigit(line.charAt(3))) {
-                move.from = line.substring(0,2);
-                move.to = line.substring(2,4);
+                move.source_col = (int)line.charAt(0) - 65;
+                move.source_row = Character.getNumericValue(line.charAt(1)) - 1;
+                move.destination_col = (int)line.charAt(2) - 65;
+                move.destination_row = Character.getNumericValue(line.charAt(3)) - 1;
                 move.type = NotationType.Long;
                 return 4;
             }
         }
-        // Loading only to
+        // Loading only destination
         else if(line.length() > 1){
-            move.to = line.substring(0,2);
+            move.destination_col = (int)line.charAt(0) - 65;
+            move.destination_row = Character.getNumericValue(line.charAt(1)) - 1;
             move.type = NotationType.Short;
             return 2;
         }

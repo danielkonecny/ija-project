@@ -1,11 +1,6 @@
 package FinalProject;
 
-import FinalProject.common.UniversalFigure;
 import FinalProject.game.Board;
-import FinalProject.game.BoardField;
-import FinalProject.game.ReadFile;
-
-
 
 public class Game {
     public static void main(String[] args) {
@@ -39,7 +34,7 @@ public class Game {
         //
 
         if(args.length != 1) {
-            System.err.println("Dej si do Run->Edit Configuration->Program arguments -> ./input.txt)");
+            System.err.println("Dej si do Run->Edit Configuration->Program arguments -> ./input.txt");
             System.exit(1);
         }
 
