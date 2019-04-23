@@ -18,7 +18,19 @@ public class ParseNonations {
 
     public void playerMoveNotation(String line){
         OneMove move = new OneMove(null,null,null,null, null);
-        this.getMoveFigure(line);
+        System.out.print("Bily: "+this.getWhite(line)+ "  ");
+        System.out.println("Cerny: "+this.getBlack(line));
+        System.out.println();
+    }
+
+    public String getWhite(String line){
+        String[] ss=line.split(" ");
+        return ss[1];
+    }
+
+    public String getBlack(String line){
+        String[] ss=line.split(" ");
+        return ss[2];
     }
 
     public void getMoveFigure(String line){
