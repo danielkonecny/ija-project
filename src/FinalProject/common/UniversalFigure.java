@@ -1,5 +1,6 @@
 package FinalProject.common;
 
+import FinalProject.game.Board;
 import FinalProject.game.BoardField;
 
 public abstract class UniversalFigure {
@@ -46,6 +47,20 @@ public abstract class UniversalFigure {
         System.out.println(state);
     }
 
+    protected boolean checkWay(int start_col, int start_row,
+                             int end_col, int end_row,
+                             int change_col, int change_row) {
+        Board board = this.getBoardField().getBoard();
+        for(int col = start_col + change_col, row = start_row + change_row;
+            col <= end_col && row <= end_row;
+            col += change_col, row += change_row) {
+            if(!board.getField(col, row).isEmpty() && col != end_col && row != end_row) {
+                return false;
+            }
+        }
+        return true;
+    }
+
     public void removeBoardField(){
         this.boardField = null;
     }
@@ -53,6 +68,4 @@ public abstract class UniversalFigure {
     public abstract boolean canMove(BoardField boardField);
 
     public abstract String getType();
-
-
 }

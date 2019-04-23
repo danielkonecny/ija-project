@@ -14,7 +14,7 @@ public class BoardField {
         this.row = row;
     }
 
-    Board getBoard() {
+    public Board getBoard() {
         return this.board;
     }
 
@@ -34,7 +34,7 @@ public class BoardField {
         return this.row+1;
     }
 
-    boolean isEmpty() {
+    public boolean isEmpty() {
         return this.figure == null;
     }
 
