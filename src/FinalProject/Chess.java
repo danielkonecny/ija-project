@@ -139,4 +139,9 @@ public class Chess {
             }
         }
     }
+
+    public void parseNonations(String file){
+        ParseNonations parser = new ParseNonations();
+        parser.parse(this.notation, file);
+    }
 }
