@@ -59,7 +59,7 @@ public class Chess {
                 PlayersMove round = new PlayersMove(white, null);
                 System.out.println("Debug");
                 white.print();
-                //TODO
+                //TODO - poud jsou dalsi notace - smazat
                 notation.add(round);
             }
             //black moving - get PlayersMove and add black
