@@ -1,5 +1,6 @@
 package FinalProject.game;
 
+import FinalProject.common.FigureType;
 import FinalProject.common.NotationType;
 import FinalProject.common.UniversalFigure;
 
@@ -7,14 +8,14 @@ import java.lang.reflect.Field;
 
 public class OneMove {
     NotationType type;
-    public String figure;
+    public FigureType figure;
     public String difference; //pokud je konflikt pri kratke notaci urcuje sloupec nebo radek
     public String from;
     public String to;
     public String change;
     public String special;
 
-    public OneMove(NotationType type, String figure, String difference, String from, String to, String change, String special){
+    public OneMove(NotationType type, FigureType figure, String difference, String from, String to, String change, String special){
         this.type = type;
         this.figure = figure;
         this.difference = difference;

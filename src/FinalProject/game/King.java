@@ -1,14 +1,11 @@
 package FinalProject.game;
 
+import FinalProject.common.FigureType;
 import FinalProject.common.UniversalFigure;
 
 public class King extends UniversalFigure {
-    public King(boolean white, BoardField boardField) {
-        super(white, boardField);
-    }
-
-    public String getType() {
-        return "K";
+    public King(BoardField boardField, boolean white) {
+        super(boardField, white, FigureType.K);
     }
 
     public boolean canMove(BoardField destination) {

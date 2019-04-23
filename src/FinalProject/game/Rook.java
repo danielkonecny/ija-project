@@ -1,14 +1,11 @@
 package FinalProject.game;
 
+import FinalProject.common.FigureType;
 import FinalProject.common.UniversalFigure;
 
 public class Rook extends UniversalFigure {
-    public Rook(boolean white, BoardField boardField) {
-        super(white, boardField);
-    }
-
-    public String getType() {
-        return "V";
+    public Rook(BoardField boardField, boolean white) {
+        super(boardField, white, FigureType.V);
     }
 
     public boolean canMove(BoardField destination) {

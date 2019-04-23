@@ -5,11 +5,13 @@ import FinalProject.game.BoardField;
 
 public abstract class UniversalFigure {
     private BoardField boardField;
+    private FigureType type;
     private boolean white;
 
-    public UniversalFigure(boolean white, BoardField boardField) {
+    public UniversalFigure(BoardField boardField, boolean white, FigureType type) {
         this.boardField = boardField;
         this.white = white;
+        this.type = type;
     }
 
     public BoardField getBoardField() {
@@ -18,6 +20,10 @@ public abstract class UniversalFigure {
 
     protected boolean isWhite() {
         return this.white;
+    }
+
+    public FigureType getType() {
+        return type;
     }
 
     public void assignBoardField(BoardField boardField, boolean white) {
@@ -36,7 +42,7 @@ public abstract class UniversalFigure {
     }
 
     public void printState() {
-        String state = getType();
+        String state = getType().name();
         if(isWhite()) {
             state += "[W]";
         }
@@ -66,6 +72,4 @@ public abstract class UniversalFigure {
     }
 
     public abstract boolean canMove(BoardField boardField);
-
-    public abstract String getType();
 }

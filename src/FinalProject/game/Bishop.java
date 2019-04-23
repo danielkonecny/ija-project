@@ -1,14 +1,11 @@
 package FinalProject.game;
 
+import FinalProject.common.FigureType;
 import FinalProject.common.UniversalFigure;
 
 public class Bishop extends UniversalFigure {
-    public Bishop(boolean white, BoardField boardField) {
-        super(white, boardField);
-    }
-
-    public String getType() {
-        return "S";
+    public Bishop(BoardField boardField, boolean white) {
+        super(boardField, white, FigureType.S);
     }
 
     public boolean canMove(BoardField destination) {

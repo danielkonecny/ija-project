@@ -1,14 +1,11 @@
 package FinalProject.game;
 
+import FinalProject.common.FigureType;
 import FinalProject.common.UniversalFigure;
 
 public class Pawn extends UniversalFigure {
-    public Pawn(boolean white, BoardField boardField) {
-        super(white, boardField);
-    }
-
-    public String getType() {
-        return "P";
+    public Pawn(BoardField boardField, boolean white) {
+        super(boardField, white, FigureType.p);
     }
 
     public boolean canMove(BoardField destination) {

@@ -1,14 +1,11 @@
 package FinalProject.game;
 
+import FinalProject.common.FigureType;
 import FinalProject.common.UniversalFigure;
 
 public class Queen extends UniversalFigure {
-    public Queen(boolean white, BoardField boardField) {
-        super(white, boardField);
-    }
-
-    public String getType() {
-        return "D";
+    public Queen(BoardField boardField, boolean white) {
+        super(boardField, white, FigureType.D);
     }
 
     public boolean canMove(BoardField destination) {

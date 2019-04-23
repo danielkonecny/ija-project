@@ -1,11 +1,12 @@
 package FinalProject.game;
 
+import FinalProject.common.FigureType;
 import FinalProject.common.NotationType;
 
 import java.util.List;
 
-public class ParseNonations {
-    public ParseNonations(){
+public class ParseNotations {
+    public ParseNotations(){
     }
 
     public void parse(List<PlayersMove> notation, String file){
@@ -74,7 +75,7 @@ public class ParseNonations {
     private int getMoveFigure(String line, OneMove move){
         if (isUppercaseLetter(line.charAt(0))){
             //System.out.println("Je velky pismeno");
-            move.figure = Character.toString(line.charAt(0));
+            move.figure = FigureType.valueOf(Character.toString(line.charAt(0)));
             return 1;
         }
         return 0;

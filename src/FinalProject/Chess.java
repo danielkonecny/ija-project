@@ -16,30 +16,30 @@ public class Chess {
         notation = new ArrayList<>();
         this.board = board;
         int moves = 0;
-        this.board.field[0][0].setFigure(new Rook(true, this.board.field[0][0]));
-        this.board.field[7][0].setFigure(new Rook(true, this.board.field[7][0]));
-        this.board.field[0][7].setFigure(new Rook(false, this.board.field[0][7]));
-        this.board.field[7][7].setFigure(new Rook(false, this.board.field[7][7]));
+        this.board.field[0][0].setFigure(new Rook(this.board.field[0][0], true));
+        this.board.field[7][0].setFigure(new Rook(this.board.field[7][0], true));
+        this.board.field[0][7].setFigure(new Rook(this.board.field[0][7], false));
+        this.board.field[7][7].setFigure(new Rook(this.board.field[7][7], false));
 
-        this.board.field[1][0].setFigure(new Knight(true, this.board.field[1][0]));
-        this.board.field[6][0].setFigure(new Knight(true, this.board.field[6][0]));
-        this.board.field[1][7].setFigure(new Knight(false, this.board.field[1][7]));
-        this.board.field[6][7].setFigure(new Knight(false, this.board.field[6][7]));
+        this.board.field[1][0].setFigure(new Knight(this.board.field[1][0], true));
+        this.board.field[6][0].setFigure(new Knight(this.board.field[6][0], true));
+        this.board.field[1][7].setFigure(new Knight(this.board.field[1][7], false));
+        this.board.field[6][7].setFigure(new Knight(this.board.field[6][7], false));
 
-        this.board.field[2][0].setFigure(new Bishop(true, this.board.field[2][0]));
-        this.board.field[5][0].setFigure(new Bishop(true, this.board.field[5][0]));
-        this.board.field[2][7].setFigure(new Bishop(false, this.board.field[2][7]));
-        this.board.field[5][7].setFigure(new Bishop(false, this.board.field[5][7]));
+        this.board.field[2][0].setFigure(new Bishop(this.board.field[2][0], true));
+        this.board.field[5][0].setFigure(new Bishop(this.board.field[5][0], true));
+        this.board.field[2][7].setFigure(new Bishop(this.board.field[2][7], false));
+        this.board.field[5][7].setFigure(new Bishop(this.board.field[5][7], false));
 
-        this.board.field[3][0].setFigure(new Queen(true, this.board.field[3][0]));
-        this.board.field[3][7].setFigure(new Queen(false, this.board.field[3][7]));
+        this.board.field[3][0].setFigure(new Queen(this.board.field[3][0], true));
+        this.board.field[3][7].setFigure(new Queen(this.board.field[3][7], false));
 
-        this.board.field[4][0].setFigure(new King(false, this.board.field[4][0]));
-        this.board.field[4][7].setFigure(new King(false, this.board.field[4][7]));
+        this.board.field[4][0].setFigure(new King(this.board.field[4][0], false));
+        this.board.field[4][7].setFigure(new King(this.board.field[4][7], false));
 
         for(int i = 0; i < this.board.getSize(); i++){
-            this.board.field[i][1].setFigure(new Pawn(true, this.board.field[i][1]));
-            this.board.field[i][6].setFigure(new Pawn(false, this.board.field[i][6]));
+            this.board.field[i][1].setFigure(new Pawn(this.board.field[i][1], true));
+            this.board.field[i][6].setFigure(new Pawn(this.board.field[i][6], false));
         }
 
         for(int i = 0; i < this.board.getSize(); i++){
@@ -143,7 +143,7 @@ public class Chess {
     }
 
     public void parseNonations(String file){
-        ParseNonations parser = new ParseNonations();
+        ParseNotations parser = new ParseNotations();
         parser.parse(this.notation, file);
     }
 
