@@ -55,7 +55,7 @@ public class Chess {
             //if moves odd - white moving. Create PlayersMove and fill with white
             if (this.moves % 2 == 1){
                 OneMove white = new OneMove(NotationType.Long, figure.getType(),
-                        null, figure.getBoardField().getLocation(), field.getLocation());
+                        null, figure.getBoardField().getLocation(), field.getLocation(), null, null);
                 PlayersMove round = new PlayersMove(white, null);
                 System.out.println("Debug");
                 white.print();
@@ -65,7 +65,7 @@ public class Chess {
             //black moving - get PlayersMove and add black
             else{
                 OneMove black = new OneMove(NotationType.Long, figure.getType(),
-                        null, figure.getBoardField().getLocation(), field.getLocation());
+                        null, figure.getBoardField().getLocation(), field.getLocation(), null, null);
                 PlayersMove round = notation.get(moves/2);
                 round.setBlack(black);
             }
