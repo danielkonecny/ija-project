@@ -1,4 +1,6 @@
-Zadání: Navrhněte a implementujte aplikaci pro přehrávání šachových partií.
+﻿Zadání: 
+
+Navrhněte a implementujte aplikaci pro přehrávání šachových partií.
 Poznámka: Zadání definuje podstatné vlastnosti aplikace, které musí být splněny. Předpokládá se, že detaily řešení si doplní řešitelské týmy. Nejasnosti v zadání řešte, prosím, primárně na k tomu příslušném Fóru. 
 
 Podmínky vypracování projektu
