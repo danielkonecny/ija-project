@@ -28,7 +28,7 @@ public class Board {
         return null;
     }
 
-    public int getSize(){
+    public int getSize() {
         if(board != null && board[0] != null) {
             return board[0].length;
         }

@@ -56,8 +56,8 @@ public class Game {
 
         //chess.printBoardReadable();
 
-        for(int i = 0; i < chess.getNotationSize(); i ++){
-            chess.next();
+        for(int i = 0; i < chess.getMoves().size(); i ++){
+            chess.nextMove();
         }
         //chess.next();
         //chess.printBoardReadable();

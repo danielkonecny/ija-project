@@ -22,21 +22,12 @@ public abstract class UniversalFigure {
         this.boardField = boardField;
     }
 
-    public boolean isWhite() {
-        return this.white;
-    }
-
     public FigureType getType() {
         return type;
     }
 
-    public void assignBoardField(BoardField boardField, boolean white) {
-        this.boardField = boardField;
-        this.white = white;
-    }
-
-    private String getPosition() {
-        return getBoardField().getCol() + ":" + getBoardField().getRow();
+    public boolean isWhite() {
+        return this.white;
     }
 
     public void printState() {
@@ -47,7 +38,7 @@ public abstract class UniversalFigure {
         else {
             state += "[B]";
         }
-        state += getPosition();
+        state += getBoardField().getCol() + ":" + getBoardField().getRow();
         System.out.println(state);
     }
 

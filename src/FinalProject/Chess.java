@@ -9,8 +9,8 @@ import java.lang.reflect.Field;
 import java.util.*;
 
 public class Chess {
-    public Board board; // TODO dat private
-    private List<OneMove> notation;
+    private Board board;
+    private List<OneMove> moves;
     private Queue<UniversalFigure> figureQueue = new LinkedList<>();
     private int counter;
 
@@ -25,7 +25,7 @@ public class Chess {
     public static final String ANSI_WHITE = "\u001B[37m";
 
     Chess(Board board){
-        this.notation = new ArrayList<>();
+        this.moves = new ArrayList<>();
         this.board = board;
         this.counter = 0;
         this.board.getBoard()[0][0].setFigure(new Rook(this.board.getBoard()[0][0], true));
@@ -61,13 +61,25 @@ public class Chess {
         }
     }
 
+    public List<OneMove> getMoves() {
+        return moves;
+    }
+
+    public int getCounter() {
+        return counter;
+    }
+
+    public void setCounter(int counter) {
+        this.counter = counter;
+    }
+
     // Call this when moves are performed automatically.
-    public boolean automaticMove(OneMove move){
+    public boolean automaticMove(OneMove move) {
             UniversalFigure figure = getFigureFromNotation(move);
         BoardField field = getFieldFromNotation(move);
         if(figure != null){
             moveFigure(figure, field);
-            UniversalFigure newFigure = automaticChange(figure, move);
+            UniversalFigure newFigure = promote(figure, move);
             if(newFigure != null){
                 field.setFigure(newFigure);
             }
@@ -92,7 +104,7 @@ public class Chess {
         return null;
     }
 
-    private void checkCheck(){
+    private void checkCheck() {
         ArrayList<UniversalFigure> whiteKing = this.board.getFiguresOfType(FigureType.K, true);
         ArrayList<UniversalFigure> blackKing = this.board.getFiguresOfType(FigureType.K, false);
         if (canAttackKing(whiteKing.get(0))){
@@ -103,7 +115,7 @@ public class Chess {
         }
     }
 
-    private boolean canAttackKing(UniversalFigure king){
+    private boolean canAttackKing(UniversalFigure king) {
         ArrayList<UniversalFigure> figures = this.board.getFiguresOfPlayer(!king.isWhite());
         BoardField kingField = king.getBoardField();
         for(UniversalFigure figure: figures) {
@@ -126,14 +138,14 @@ public class Chess {
     }
 
     // Call this when player moves figure manually.
-    public boolean manualMove(UniversalFigure figure, BoardField field){
+    public boolean manualMove(UniversalFigure figure, BoardField field) {
         if(figure.canMove(field)){
-            int index = this.notation.size();   // TODO - nebude se pocitat jako konec pole, ale podle aktualni pozice v pruchodu notaci
+            int index = this.moves.size();   // TODO - nebude se pocitat jako konec pole, ale podle aktualni pozice v pruchodu notaci
             // TODO - smazat nasledujici notaci
-            OneMove move = new OneMove(index % 2 == 0, NotationType.Long, figure.getType(),
+            OneMove move = new OneMove(index % 2 == 0, figure.getType(),
                     figure.getBoardField().getCol(), figure.getBoardField().getRow(),
                     field.getCol(), field.getRow(),null, null);
-            notation.add(move);
+            moves.add(move);
             moveFigure(figure, field);
             return true;
         }
@@ -142,19 +154,19 @@ public class Chess {
         }
     }
 
-    private void moveFigure(UniversalFigure figure, BoardField field){
+    private void moveFigure(UniversalFigure figure, BoardField field) {
         figure.getBoardField().setFigure(null);
         figure.setBoardField(field);
         field.setFigure(figure);
     }
 
-    public void next(){
+    public void nextMove() {
         System.out.println("Tah cislo " + counter + 1);
-        this.automaticMove(this.notation.get(counter));
+        automaticMove(this.moves.get(counter));
         counter += 1;
     }
 
-    private void manualChange(UniversalFigure actPawn){
+    private void manualChange(UniversalFigure actPawn) {
         if(actPawn.getBoardField().getRow() == 0 || actPawn.getBoardField().getRow() == 7){
             //otevre se nejakej formular pro volbu premeny pesce
             FigureType type = FigureType.D;
@@ -163,31 +175,41 @@ public class Chess {
         }
     }
 
-    private UniversalFigure automaticChange(UniversalFigure actPawn,OneMove move){
-        if(actPawn.getType() == FigureType.p){
-            if(actPawn.getBoardField().getRow() == 0 || actPawn.getBoardField().getRow() == 7){
-                if(move.getChange() != null){
-                    FigureType type = move.getChange();
-                    UniversalFigure newFigure = createNewFigure(actPawn, type);
-                    return newFigure;
-                }
+    private UniversalFigure promote(UniversalFigure pawn, OneMove move) {
+        if(pawn.getBoardField().getRow() == 0 || pawn.getBoardField().getRow() == 7) {
+            if(move.getPromotion() != null) {
+                FigureType type = move.getPromotion();
+                return createNewFigure(pawn, type);
             }
         }
         return null;
     }
 
-    private UniversalFigure createNewFigure(UniversalFigure oldFigure, FigureType type){
+    private UniversalFigure createNewFigure(UniversalFigure oldFigure, FigureType type) {
         UniversalFigure newFigure;
+        // No need to control the type - notation is controlled and user can only choose correct option.
         switch (type) {
             case D: {
-                newFigure = new Queen(oldFigure.getBoardField(),oldFigure.isWhite());
+                newFigure = new Queen(oldFigure.getBoardField(), oldFigure.isWhite());
+                return newFigure;
+            }
+            case V: {
+                newFigure = new Rook(oldFigure.getBoardField(), oldFigure.isWhite());
+                return newFigure;
+            }
+            case S: {
+                newFigure = new Bishop(oldFigure.getBoardField(), oldFigure.isWhite());
+                return newFigure;
+            }
+            case J: {
+                newFigure = new Knight(oldFigure.getBoardField(), oldFigure.isWhite());
                 return newFigure;
             }
         }
         return null;
     }
 
-    public void restartGame(){
+    public void restartGame() {
         Queue<UniversalFigure> tmp = new LinkedList<>(this.figureQueue);
 
         /* Zkratil jsem, ale nevim, jestli funguje, prijde mi, ze to nemuze fungovat, ani v puvodnim pripade, protoze ta fronta nebude naplnena.
@@ -208,7 +230,7 @@ public class Chess {
         }
     }
 
-    public void printBoard(){
+    public void printBoard() {
         for(int i = 0; i < this.board.getSize(); i++){
             for(int j = 0; j < this.board.getSize(); j++){
                 if (this.board.getBoard()[i][j].getFigure() == null){
@@ -222,7 +244,7 @@ public class Chess {
         }
     }
 
-    public void printBoardReadable(){
+    public void printBoardReadable() {
         System.out.println();
         for(int i = 0; i < this.board.getSize(); i++){
             System.out.print(ANSI_GREEN + (8-i) + ANSI_RESET + " ");
@@ -250,41 +272,37 @@ public class Chess {
 
     }
 
-    public void debugNotation(){
-        for(OneMove move: notation) {
+    public void debugNotation() {
+        for(OneMove move: moves) {
             move.print();
         }
     }
 
-    void parseNotations(String file){
+    void parseNotations(String file) {
         ParseNotations parser = new ParseNotations();
-        this.notation = parser.parse(file);
+        this.moves = parser.parse(file);
     }
 
     //user-friendly variant of printNotation
-    void printNotation(){
+    void printNotation() {
         int index = 0;
-        while(index < this.notation.size()) {
+        while(index < this.moves.size()) {
             String output = Integer.toString(index / 2 + 1);
             output += ". ";
-            output += this.notation.get(index).printOnRow();
+            output += this.moves.get(index).printOnRow();
             index += 1;
-            if(index < this.notation.size()) {
+            if(index < this.moves.size()) {
                 output += " ";
-                output += this.notation.get(index).printOnRow();
+                output += this.moves.get(index).printOnRow();
                 index += 1;
             }
             System.out.println(output);
         }
     }
 
-    public void clearListFrom(int pos){
-        for(int i = pos; i < notation.size(); i++){
-            notation.set(i,null);
+    public void clearListFrom(int pos) {
+        for(int i = pos; i < moves.size(); i++){
+            moves.set(i,null);
         }
-    }
-
-    public int getNotationSize(){
-        return this.notation.size();
     }
 }
