@@ -40,11 +40,31 @@ public class Game {
 
         //System.out.println(args[0]);
 
+        chess.printBoardReadable();
+
         chess.parseNotations(args[0]);
         //chess.debugNotation();
         //chess.clearListFrom(1);
         //chess.debugNotation();
         chess.printNotation();
+
+        //chess.debugNotation();
+
+        //chess.next();
+
+        //chess.board.board[0][0].setFigure(null);
+
+        //chess.printBoardReadable();
+
+        for(int i = 0; i < chess.getNotationSize(); i ++){
+            chess.next();
+        }
+        //chess.next();
+        //chess.printBoardReadable();
+        //chess.next();
+        //chess.printBoardReadable();
+        //chess.next();
+        chess.printBoardReadable();
         //==============================================
 
 

@@ -1,4 +1,12 @@
-1. e2e4 e7e5
-2. Sf1c4 Dd8f6#
-3. 1c4D f6
-4. Sbc4 Dd8f6J+
+1. a2a3 a7a6
+2. h2h3 a6a5
+3. Jb1c3 a5a4
+4. Jc3a4 h7h6
+5. Ja4c5 g7g6
+6. a3a4 Va8a6
+7. a4a5 Va6e6
+8. a5a6 h6h5
+9. a6a7 g6g5
+10. a7a8D f7f6
+11. Jc5b7 h5h4
+12. Jb7d6 g5g4

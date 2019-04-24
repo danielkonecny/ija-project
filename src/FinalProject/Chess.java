@@ -1,19 +1,33 @@
 package FinalProject;
 
+import FinalProject.common.FigureType;
 import FinalProject.common.NotationType;
 import FinalProject.common.UniversalFigure;
 import FinalProject.game.*;
 
+import java.lang.reflect.Field;
 import java.util.*;
 
 public class Chess {
-    private Board board;
+    public Board board; // TODO dat private
     private List<OneMove> notation;
     private Queue<UniversalFigure> figureQueue = new LinkedList<>();
+    private int counter;
+
+    public static final String ANSI_RESET = "\u001B[0m";
+    public static final String ANSI_BLACK = "\u001B[30m";
+    public static final String ANSI_RED = "\u001B[31m";
+    public static final String ANSI_GREEN = "\u001B[32m";
+    public static final String ANSI_YELLOW = "\u001B[33m";
+    public static final String ANSI_BLUE = "\u001B[34m";
+    public static final String ANSI_PURPLE = "\u001B[35m";
+    public static final String ANSI_CYAN = "\u001B[36m";
+    public static final String ANSI_WHITE = "\u001B[37m";
 
     Chess(Board board){
         this.notation = new ArrayList<>();
         this.board = board;
+        this.counter = 0;
         this.board.getBoard()[0][0].setFigure(new Rook(this.board.getBoard()[0][0], true));
         this.board.getBoard()[7][0].setFigure(new Rook(this.board.getBoard()[7][0], true));
         this.board.getBoard()[0][7].setFigure(new Rook(this.board.getBoard()[0][7], false));
@@ -49,10 +63,15 @@ public class Chess {
 
     // Call this when moves are performed automatically.
     public boolean automaticMove(OneMove move){
-        UniversalFigure figure = getFigureFromNotation(move);
+            UniversalFigure figure = getFigureFromNotation(move);
         BoardField field = getFieldFromNotation(move);
         if(figure != null){
             moveFigure(figure, field);
+            UniversalFigure newFigure = automaticChange(figure, move);
+            if(newFigure != null){
+                field.setFigure(newFigure);
+            }
+            checkSach();
             return true;
         }
         else {
@@ -71,6 +90,35 @@ public class Chess {
             }
         }
         return null;
+    }
+
+    private void checkSach(){
+        ArrayList<UniversalFigure> whiteKing = this.board.getFiguresOfType(FigureType.K, true);
+        ArrayList<UniversalFigure> blackKing = this.board.getFiguresOfType(FigureType.K, false);
+        if (canAttackKing(whiteKing.get(0))){
+            System.out.println("Bilej je v sachu");
+        }
+        if (canAttackKing(blackKing.get(0))){
+            System.out.println("Cernej je v sachu");
+        }
+    }
+
+    private boolean canAttackKing(UniversalFigure king){
+        ArrayList<UniversalFigure> figures = this.board.getFiguresOfPlayer(!king.isWhite());
+        BoardField kingField = king.getBoardField();
+        for(UniversalFigure figure: figures) {
+            if(figure.canMove(kingField)) {
+                System.out.println(figure.getType());
+                System.out.println(king.isWhite());
+                System.out.println(figure.isWhite());
+                System.out.println("======");
+                king.printState();
+                figure.printState();
+                System.out.println("??????");
+                return true;
+            }
+        }
+        return false;
     }
 
     private BoardField getFieldFromNotation(OneMove move) {
@@ -98,6 +146,45 @@ public class Chess {
         figure.getBoardField().setFigure(null);
         figure.setBoardField(field);
         field.setFigure(figure);
+    }
+
+    public void next(){
+        System.out.println("Tah cislo " + counter + 1);
+        this.automaticMove(this.notation.get(counter));
+        counter += 1;
+    }
+
+    private void manualChange(UniversalFigure actPawn){
+        if(actPawn.getBoardField().getRow() == 0 || actPawn.getBoardField().getRow() == 7){
+            //otevre se nejakej formular pro volbu premeny pesce
+            FigureType type = FigureType.D;
+            //createNewFigure(type);
+
+        }
+    }
+
+    private UniversalFigure automaticChange(UniversalFigure actPawn,OneMove move){
+        if(actPawn.getType() == FigureType.p){
+            if(actPawn.getBoardField().getRow() == 0 || actPawn.getBoardField().getRow() == 7){
+                if(move.getChange() != null){
+                    FigureType type = move.getChange();
+                    UniversalFigure newFigure = createNewFigure(actPawn, type);
+                    return newFigure;
+                }
+            }
+        }
+        return null;
+    }
+
+    private UniversalFigure createNewFigure(UniversalFigure oldFigure, FigureType type){
+        UniversalFigure newFigure;
+        switch (type) {
+            case D: {
+                newFigure = new Queen(oldFigure.getBoardField(),oldFigure.isWhite());
+                return newFigure;
+            }
+        }
+        return null;
     }
 
     public void restartGame(){
@@ -135,6 +222,34 @@ public class Chess {
         }
     }
 
+    public void printBoardReadable(){
+        System.out.println();
+        for(int i = 0; i < this.board.getSize(); i++){
+            System.out.print(ANSI_GREEN + (8-i) + ANSI_RESET + " ");
+            for(int j = 0; j < this.board.getSize(); j++){
+                if (this.board.getBoard()[j][7-i].getFigure() == null){
+                    System.out.print("_");
+                }
+                else if (this.board.getBoard()[j][7-i].getFigure().isWhite()) {
+                    System.out.print(ANSI_WHITE + this.board.getBoard()[j][7-i].getFigure().getType() + ANSI_RESET);
+                }
+                else{
+                    System.out.print(ANSI_CYAN + this.board.getBoard()[j][7-i].getFigure().getType() + ANSI_RESET);
+                }
+                System.out.print(" ");
+            }
+            System.out.println("");
+        }
+        System.out.print("  ");
+        for(int i = 0; i < 8; i++){
+            System.out.print(ANSI_GREEN + (char)(i+65) + " " + ANSI_RESET);
+        }
+        System.out.println();
+        System.out.println();
+
+
+    }
+
     public void debugNotation(){
         for(OneMove move: notation) {
             move.print();
@@ -167,5 +282,9 @@ public class Chess {
         for(int i = pos; i < notation.size(); i++){
             notation.set(i,null);
         }
+    }
+
+    public int getNotationSize(){
+        return this.notation.size();
     }
 }

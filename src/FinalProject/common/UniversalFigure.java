@@ -35,6 +35,8 @@ public abstract class UniversalFigure {
         this.white = white;
     }
 
+
+
         //returns figure's position
     private String getPosition() {
         return getBoardField().getCol() + ":" + getBoardField().getRow();

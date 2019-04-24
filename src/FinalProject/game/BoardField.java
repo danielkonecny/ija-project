@@ -27,11 +27,11 @@ public class BoardField {
     }
 
     public int getCol() {
-        return this.col+1;
+        return this.col;
     }
 
     public int getRow() {
-        return this.row+1;
+        return this.row;
     }
 
     public boolean isEmpty() {

@@ -22,8 +22,8 @@ public class Board {
     }
 
     public BoardField getField(int col, int row) {
-        if(col >= 1 && col <= getSize() && row >=1 && row <= getSize()) {
-            return this.board[col-1][row-1];
+        if(col >= 0 && col < getSize() && row >=0 && row < getSize()) {
+            return this.board[col][row];
         }
         return null;
     }
@@ -39,8 +39,24 @@ public class Board {
         ArrayList<UniversalFigure> figures = new ArrayList<>();
         for(BoardField[] col: this.board) {
             for(BoardField field: col) {
-                if(field.getFigure().getType() == type && field.getFigure().isWhite() == white_player) {
-                    figures.add(field.getFigure());
+                if(field.getFigure() != null){
+                    if(field.getFigure().getType() == type && field.getFigure().isWhite() == white_player) {
+                        figures.add(field.getFigure());
+                    }
+                }
+            }
+        }
+        return figures;
+    }
+
+    public ArrayList<UniversalFigure> getFiguresOfPlayer(boolean white_player) {
+        ArrayList<UniversalFigure> figures = new ArrayList<>();
+        for(BoardField[] col: this.board) {
+            for(BoardField field: col) {
+                if(field.getFigure() != null){
+                    if(field.getFigure().isWhite() == white_player) {
+                        figures.add(field.getFigure());
+                    }
                 }
             }
         }

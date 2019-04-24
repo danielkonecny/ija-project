@@ -63,16 +63,16 @@ public class OneMove {
             System.out.println("Figurka: " + this.figure.name());
         }
         if(this.source_col != -1) {
-            System.out.println("From col: " + getCol(this.source_col));
+            System.out.println("From col: " + getCol(this.source_col) + " " + this.source_col);
         }
         if(this.source_row != -1) {
-            System.out.println("From row: " + getRow(this.source_row));
+            System.out.println("From row: " + getRow(this.source_row) + " " + this.source_row);
         }
         if(this.destination_col != -1) {
-            System.out.println("To col: " + getCol(this.destination_col));
+            System.out.println("To col: " + getCol(this.destination_col) + " " + this.destination_col);
         }
         if(this.destination_row != -1) {
-            System.out.println("To row: " + getRow(this.destination_row));
+            System.out.println("To row: " + getRow(this.destination_row) + " " + this.destination_row);
         }
         if(this.change != null) {
             System.out.println("Change: " + this.change.name());
@@ -110,10 +110,14 @@ public class OneMove {
     }
 
     private String getCol(int col) {
-        return Character.toString((char)(col + 65));
+        return Character.toString((char)(col + 97));
     }
 
     private String getRow(int row) {
         return Integer.toString(row + 1);
+    }
+
+    public FigureType getChange(){
+        return this.change;
     }
 }

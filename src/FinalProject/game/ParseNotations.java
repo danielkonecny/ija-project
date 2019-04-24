@@ -85,9 +85,9 @@ public class ParseNotations {
                     isDigit(line.charAt(1)) &&
                     isLowercaseLetter(line.charAt(2)) &&
                     isDigit(line.charAt(3))) {
-                move.source_col = (int)line.charAt(0) - 65;
+                move.source_col = (int)line.charAt(0) - 97;
                 move.source_row = Character.getNumericValue(line.charAt(1)) - 1;
-                move.destination_col = (int)line.charAt(2) - 65;
+                move.destination_col = (int)line.charAt(2) - 97;
                 move.destination_row = Character.getNumericValue(line.charAt(3)) - 1;
                 move.type = NotationType.Long;
                 return 4;
