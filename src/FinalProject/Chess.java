@@ -111,10 +111,10 @@ public class Chess {
                 System.out.println(figure.getType());
                 System.out.println(king.isWhite());
                 System.out.println(figure.isWhite());
-                System.out.println("======");
+                System.out.print("Kral kterej je v sachu: ");
                 king.printState();
+                System.out.print("Figurka, ktera ho sachuje: ");
                 figure.printState();
-                System.out.println("??????");
                 return true;
             }
         }
