@@ -35,9 +35,6 @@ public abstract class UniversalFigure {
         this.white = white;
     }
 
-
-
-        //returns figure's position
     private String getPosition() {
         return getBoardField().getCol() + ":" + getBoardField().getRow();
     }
@@ -61,7 +58,7 @@ public abstract class UniversalFigure {
         for(int col = start_col + change_col, row = start_row + change_row;
             col <= end_col && row <= end_row;
             col += change_col, row += change_row) {
-            if(!board.getField(col, row).isEmpty() && col != end_col && row != end_row) {
+            if(!board.getField(col, row).isEmpty() && !(col != end_col && row != end_row)) {
                 return false;
             }
         }

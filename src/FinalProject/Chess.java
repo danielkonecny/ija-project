@@ -71,7 +71,7 @@ public class Chess {
             if(newFigure != null){
                 field.setFigure(newFigure);
             }
-            checkSach();
+            checkCheck();
             return true;
         }
         else {
@@ -92,7 +92,7 @@ public class Chess {
         return null;
     }
 
-    private void checkSach(){
+    private void checkCheck(){
         ArrayList<UniversalFigure> whiteKing = this.board.getFiguresOfType(FigureType.K, true);
         ArrayList<UniversalFigure> blackKing = this.board.getFiguresOfType(FigureType.K, false);
         if (canAttackKing(whiteKing.get(0))){
