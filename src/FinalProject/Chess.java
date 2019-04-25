@@ -75,7 +75,7 @@ public class Chess {
 
     // Call this when moves are performed automatically.
     public boolean automaticMove(OneMove move) {
-            UniversalFigure figure = getFigureFromNotation(move);
+        UniversalFigure figure = getFigureFromNotation(move);
         BoardField field = getFieldFromNotation(move);
         if(figure != null){
             moveFigure(figure, field);
@@ -99,6 +99,10 @@ public class Chess {
                         (move.getSourceRow() == -1 || move.getSourceRow() == figure.getBoardField().getRow())) {
                     return figure;
                 }
+            }
+            else {
+                System.err.println("Figura se nemuze pohnout na zadane misto.");
+                System.exit(1);
             }
         }
         return null;

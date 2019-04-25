@@ -23,18 +23,18 @@ public class Bishop extends UniversalFigure {
                     1, 1);
         }
         else if(destination.getCol() > source.getCol() && destination.getRow() < source.getRow()) {
-            return checkWay(source.getCol(), destination.getRow(),
-                    destination.getCol(), source.getRow(),
+            return checkWay(source.getCol(), destination.getRow()-1,
+                    destination.getCol(), source.getRow()-1,
                     1, 1);
         }
         else if(destination.getCol() < source.getCol() && destination.getRow() < source.getRow()) {
-            return checkWay(destination.getCol(), destination.getRow(),
-                    source.getCol(), source.getRow(),
+            return checkWay(destination.getCol()-1, destination.getRow()-1,
+                    source.getCol()-1, source.getRow()-1,
                     1, 1);
         }
         else if(destination.getCol() < source.getCol() && destination.getRow() > source.getRow()) {
-            return checkWay(destination.getCol(), source.getRow(),
-                    source.getCol(), destination.getRow(),
+            return checkWay(destination.getCol()-1, source.getRow(),
+                    source.getCol()-1, destination.getRow(),
                     1, 1);
         }
         else {
