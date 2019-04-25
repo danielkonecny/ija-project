@@ -6,7 +6,9 @@
 6. a3a4 Va8a6
 7. a4a5 Va6e6
 8. a5a6 h6h5
-9. a6a7 g6g5
-10. a7a8D f7f6
-11. Jc5b7 h5h4
-12. Jb7d6 g5g4
+9. b2b3 Va8a7
+10. Va1a2 f7f6
+11. Va2a5 f6f5
+12. Va5a4 Vh8h7
+13. Va5b5 f5f4
+14. Vb5a5 f4f3

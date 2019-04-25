@@ -120,9 +120,6 @@ public class Chess {
         BoardField kingField = king.getBoardField();
         for(UniversalFigure figure: figures) {
             if(figure.canMove(kingField)) {
-                System.out.println(figure.getType());
-                System.out.println(king.isWhite());
-                System.out.println(figure.isWhite());
                 System.out.print("Kral kterej je v sachu: ");
                 king.printState();
                 System.out.print("Figurka, ktera ho sachuje: ");
@@ -161,7 +158,7 @@ public class Chess {
     }
 
     public void nextMove() {
-        System.out.println("Tah cislo " + counter + 1);
+        System.out.println("Tah cislo " + (counter + 1));
         automaticMove(this.moves.get(counter));
         counter += 1;
     }
