@@ -68,7 +68,7 @@ public class Chess {
 
     void performMove() {
         System.out.println("Tah cislo " + (counter + 1));
-        // TODO - check if game isn't paused
+        // TODO - check if game isn't paused and call manualMove() in advance
         automaticMove(this.moves.get(counter));
         counter += 1;
     }
@@ -245,20 +245,6 @@ public class Chess {
         }
     }
 
-    public void printBoard() {
-        for(int i = 0; i < this.board.getSize(); i++){
-            for(int j = 0; j < this.board.getSize(); j++){
-                if (this.board.getBoard()[i][j].getFigure() == null){
-                    System.out.println("null");
-                }
-                else{
-                    this.board.getBoard()[i][j].getFigure().printState();
-                }
-            }
-            System.out.println();
-        }
-    }
-
     public void printBoardReadable() {
         System.out.println();
         for(int i = 0; i < this.board.getSize(); i++){
@@ -312,12 +298,6 @@ public class Chess {
                 index += 1;
             }
             System.out.println(output);
-        }
-    }
-
-    public void clearListFrom(int pos) {
-        for(int i = pos; i < moves.size(); i++){
-            moves.set(i,null);
         }
     }
 }
