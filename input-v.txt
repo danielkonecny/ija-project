@@ -1,4 +1,4 @@
 1. b2b3 b7b6
 2. h2h4 h7h5
-3. h1h3 h8h6
-4. h3c3 h6c6
+3. Vh1h3 Vh8h6
+4. Vh3c3 Vh6c6

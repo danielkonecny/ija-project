@@ -1,23 +1,19 @@
 package FinalProject.game;
 
 import FinalProject.common.FigureType;
-// import FinalProject.common.NotationType;
 import FinalProject.common.SpecialState;
 
 import java.util.ArrayList;
 import java.util.List;
 
+// TODO - check if promotion is valid: if figure is set when it needs to be and if everything is alright when it is set
+
 public class ParseNotations {
-    public ParseNotations() {
-
-    }
-
-    public List<OneMove> parse(String file) {
+    public List<OneMove> parseFile(String file) {
         List<OneMove> notation = new ArrayList<>();
         ReadFile reader = new ReadFile(file);
         String line = reader.getLine();
         while(line != null){
-            //System.out.println(line);
             String[] parsed_line = line.split(" ");
             if(parsed_line.length < 2) {
                 System.err.println("Spatny zapis notace.");
@@ -50,7 +46,7 @@ public class ParseNotations {
     }
 
     private int parseFigureType(String line, OneMove move) {
-        if(isUppercaseLetter(line.charAt(0))) {
+        if(Character.isLetter(line.charAt(0)) && Character.isUpperCase(line.charAt(0))) {
             move.setFigure(FigureType.valueOf(Character.toString(line.charAt(0))));
             return 1;
         }
@@ -61,11 +57,13 @@ public class ParseNotations {
     }
 
     private int parseDistinguish(String line, OneMove move) {
-        if(isLowercaseLetter(line.charAt(0)) && isLowercaseLetter(line.charAt(1))) {
+        if(Character.isLetter(line.charAt(0)) && Character.isUpperCase(line.charAt(0)) &&
+                Character.isLetter(line.charAt(1)) && Character.isUpperCase(line.charAt(1))) {
             move.setSourceCol((int)line.charAt(0) - 97);
             return 1;
         }
-        else if(isDigit(line.charAt(0)) && isLowercaseLetter(line.charAt(1))) {
+        else if(Character.isDigit(line.charAt(0)) &&
+                Character.isLetter(line.charAt(1)) && Character.isLowerCase(line.charAt(1))) {
             move.setSourceRow(Character.getNumericValue(line.charAt(0)) - 1);
             return 1;
         }
@@ -74,22 +72,13 @@ public class ParseNotations {
         }
     }
 
-    private boolean isUppercaseLetter(char letter) {
-        return (Character.isLetter(letter) && Character.isUpperCase(letter));
-    }
-
-    private boolean isLowercaseLetter(char letter) {
-        return (Character.isLetter(letter) && Character.isLowerCase(letter));
-    }
-
-    private boolean isDigit(char letter){
-        return (Character.isDigit(letter));
-    }
-
     private int parseLocations(String line, OneMove move) {
         // Loading source and destination
-        if(line.length() > 3 && isLowercaseLetter(line.charAt(0)) && isDigit(line.charAt(1)) &&
-                isLowercaseLetter(line.charAt(2)) && isDigit(line.charAt(3))) {
+        if(line.length() > 3 &&
+                Character.isLetter(line.charAt(0)) && Character.isLowerCase(line.charAt(0)) &&
+                Character.isDigit(line.charAt(1)) &&
+                Character.isLetter(line.charAt(2)) && Character.isLowerCase(line.charAt(2)) &&
+                Character.isDigit(line.charAt(3))) {
             move.setSourceCol((int)line.charAt(0) - 97);
             move.setSourceRow(Character.getNumericValue(line.charAt(1)) - 1);
             move.setDestinationCol((int)line.charAt(2) - 97);
@@ -98,7 +87,9 @@ public class ParseNotations {
             return 4;
         }
         // Loading only destination
-        else if(line.length() > 1  && isLowercaseLetter(line.charAt(0)) && isDigit(line.charAt(1))) {
+        else if(line.length() > 1  &&
+                Character.isLetter(line.charAt(0)) && Character.isLowerCase(line.charAt(0)) &&
+                Character.isDigit(line.charAt(1))) {
             move.setDestinationCol((int)line.charAt(0) - 97);
             move.setDestinationRow(Character.getNumericValue(line.charAt(1)) - 1);
             // move.type = NotationType.Short;
@@ -112,7 +103,7 @@ public class ParseNotations {
     }
 
     private int parsePromotion(String line, OneMove move) {
-        if(line.length() > 0 && isUppercaseLetter(line.charAt(0))) {
+        if(line.length() > 0 && Character.isLetter(line.charAt(0)) && Character.isUpperCase(line.charAt(0))) {
             switch(line.charAt(0)) {
                 case 'D':
                     move.setPromotion(FigureType.D);
