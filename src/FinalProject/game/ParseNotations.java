@@ -83,7 +83,6 @@ public class ParseNotations {
             move.setSourceRow(Character.getNumericValue(line.charAt(1)) - 1);
             move.setDestinationCol((int)line.charAt(2) - 97);
             move.setDestinationRow(Character.getNumericValue(line.charAt(3)) - 1);
-            // move.type = NotationType.Long;
             return 4;
         }
         // Loading only destination
@@ -92,7 +91,6 @@ public class ParseNotations {
                 Character.isDigit(line.charAt(1))) {
             move.setDestinationCol((int)line.charAt(0) - 97);
             move.setDestinationRow(Character.getNumericValue(line.charAt(1)) - 1);
-            // move.type = NotationType.Short;
             return 2;
         }
         else {

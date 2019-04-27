@@ -1,11 +1,9 @@
 package FinalProject;
 
 import FinalProject.common.FigureType;
-import FinalProject.common.NotationType;
 import FinalProject.common.UniversalFigure;
 import FinalProject.game.*;
 
-import java.lang.reflect.Field;
 import java.util.*;
 
 public class Chess {
